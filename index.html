@@ -480,7 +480,7 @@ const DEFAULT_DATA = {
   categories: [
     { id:"humanities", name:"인문·창작", icon:"auto_stories", apps:[
       { id:"wim", name:"왓츠 인 마이", eng:"What's In My",
-        desc:"여덟 개의 질문 모듈을 따라가며 나를 들여다보고 기록하는 자기표현 웹앱",
+        desc:"10개의 질문 모듈을 따라가며 나를 들여다보고 기록하는 자기표현 웹앱",
         exp:["여덟 개의 자기탐색 모듈","작성한 내용 자동 저장","기록 백업과 복원","JPG·PDF·클립보드·JSON 내보내기","한국어·영어·일본어와 테마 전환"],
         field:"진로교육", keywords:["자아탐색","인문","진로교육"],
         link:"https://wim.chichiboo.link",
@@ -496,7 +496,7 @@ const DEFAULT_DATA = {
     ]},
     { id:"work", name:"업무", icon:"work", apps:[
       { id:"symbolbox", name:"여기 있어 특수문자", eng:"Symbol Box",
-        desc:"필요한 특수문자를 빠르게 찾아 클릭 한 번으로 복사하는 작업 도구",
+        desc:"큐레이션된 특수문자를 빠르게 찾아 복사하여 사용하는 작업 도구",
         exp:["카테고리별 특수문자 탐색","문자 이름으로 검색","클릭 한 번에 클립보드 복사","최근 복사한 문자 다시 사용"],
         field:"특수문자", keywords:["특수문자","시각디자인","업무"],
         link:"https://chichiboo.link/symbolbox",
@@ -532,9 +532,9 @@ const DEFAULT_DATA = {
     ]},
     { id:"musical", name:"뮤지컬", icon:"theater_comedy", apps:[
       { id:"soundbox", name:"여기 있어 효과음", eng:"Sound Box",
-        desc:"공연과 수업에 필요한 효과음을 빠르게 찾아 바로 재생하는 웹앱",
+        desc:"자주 사용하는 효과음을 쉽게 사용할 수 있도록 모아둔 웹앱",
         exp:["카테고리별 효과음 탐색","효과음 즉시 재생","자주 쓰는 효과음 즐겨찾기","공연용 무대 모드"],
-        field:"음향", keywords:["효과음","사운드","무대"],
+        field:"음향", keywords:["효과음","사운드","플레이리스트"],
         link:"https://soundbox.chichiboo.link/",
         shot:"https://i.ibb.co/S71DLpc1/2025-10-30-10-05-24.webp" },
     ]},
@@ -596,8 +596,6 @@ function render(){
       <div class="course-head">
         <div class="course-mark"><span class="material-icons-outlined">${esc(c.icon)}</span></div>
         <h2 class="serif">${esc(c.name)}</h2>
-        <div class="hr"></div>
-        <div class="no">Nº ${PAD(n)}</div>
       </div>
       ${c.apps.map(a=>dishHtml(a)).join("")}
     </section>`;
@@ -606,11 +604,10 @@ function render(){
   $("#app").innerHTML=`
     <div class="menu-paper">
       <div class="cover">
-        <div class="ornament">❧</div>
         <span class="smallcaps">Omakase&nbsp;Course</span>
         <h1 class="serif">바이브코딩 오마카세</h1>
         <div class="rule"><span class="ln"></span><span class="dia"></span><span class="ln"></span></div>
-        <p class="lead">셰프가 코스를 엄선하듯, 직접 체험해 보는 바이브코딩 웹앱을 여섯 가지 코스로 차렸습니다. 천천히 음미해 보세요.</p>
+        <p class="lead">치수쌤이 추천하는 오늘의 웹앱을 만나보세요.</p>
         <p class="byline">by. 교육뮤지컬 꿈꾸는 치수쌤</p>
       </div>
       <nav class="menu-nav">${navLinks}</nav>
