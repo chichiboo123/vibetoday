@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>바이브코딩 오마카세 | 교육뮤지컬 꿈꾸는 치수쌤</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  /* KRDS 기본 (스킬 표준) */
+  --color-primary:#006DD2; --color-primary-light:#E8F3FF; --color-primary-dark:#0056A8;
+  --color-secondary:#00A68A; --color-error:#B23A48; --color-warning:#F57C00; --color-success:#3E7C53;
+  --color-gray-900:#1A1A1A; --color-gray-700:#404040; --color-gray-500:#767676;
+  --color-gray-300:#B2B2B2; --color-gray-200:#E2E2E2; --color-gray-100:#F5F5F5; --color-white:#FFFFFF;
+
+  /* 오마카세 메뉴판 팔레트 (고급) */
+  --paper:#F6F1E7;        /* 페이지 배경 */
+  --card:#FFFDF8;         /* 메뉴지 */
+  --ink:#2B2620;          /* 본문 잉크 */
+  --ink-soft:#766B59;     /* 보조 텍스트 */
+  --ink-faint:#A89C85;    /* 흐린 텍스트 */
+  --gold:#A8884E;         /* 강조 골드 */
+  --gold-deep:#8A6B33;
+  --gold-soft:#D8C49A;
+  --line:#E4DAC6;         /* 헤어라인 */
+  --line-soft:#EFE7D6;
+
+  --radius-sm:6px; --radius-md:10px; --radius-lg:16px; --radius-xl:22px;
+  --sp-xs:4px; --sp-sm:8px; --sp-md:16px; --sp-lg:24px; --sp-xl:40px;
+  --shadow-sm:0 2px 10px rgba(80,60,20,.07);
+  --shadow-md:0 12px 34px rgba(80,60,20,.14);
+  --shadow-lg:0 24px 60px rgba(40,30,10,.22);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Pretendard GOV','Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-size:16px;color:var(--ink);min-height:100vh;display:flex;flex-direction:column;
+  background:
+    radial-gradient(1200px 700px at 85% -8%, #F3E9D6 0%, rgba(243,233,214,0) 55%),
+    radial-gradient(900px 600px at -5% 5%, #F1E7D9 0%, rgba(241,231,217,0) 55%),
+    var(--paper);
+}
+.serif{font-family:'Noto Serif KR',serif;}
+.material-icons-outlined{font-family:'Material Icons Outlined';}
+.smallcaps{font-size:12px;letter-spacing:.32em;text-transform:uppercase;font-weight:700;color:var(--gold);}
+
+main{flex:1;width:100%;max-width:900px;margin:0 auto;padding:0 var(--sp-md) 72px;}
+
+/* ===== 메뉴지 ===== */
+.menu-paper{
+  position:relative;background:var(--card);border-radius:var(--radius-xl);
+  box-shadow:var(--shadow-md);padding:clamp(26px,5vw,56px);margin-top:var(--sp-lg);
+  border:1px solid var(--line);
+}
+.menu-paper::before{
+  content:"";position:absolute;inset:14px;border:1px solid var(--gold-soft);
+  border-radius:14px;pointer-events:none;opacity:.55;
+}
+
+/* ===== 표지 ===== */
+.cover{text-align:center;position:relative;padding:var(--sp-md) 0 var(--sp-lg);}
+.ornament{color:var(--gold);font-size:22px;line-height:1;margin-bottom:var(--sp-md);letter-spacing:.4em;}
+.cover .smallcaps{display:block;margin-bottom:14px;}
+.cover h1{
+  font-size:clamp(34px,7vw,60px);font-weight:700;letter-spacing:-.01em;line-height:1.12;color:var(--ink);
+}
+.rule{display:flex;align-items:center;justify-content:center;gap:14px;margin:var(--sp-lg) auto;max-width:360px;}
+.rule .ln{height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--gold-soft),transparent);}
+.rule .dia{width:7px;height:7px;background:var(--gold);transform:rotate(45deg);}
+.cover .lead{font-size:15.5px;line-height:1.8;color:var(--ink-soft);max-width:540px;margin:0 auto;}
+.cover .byline{margin-top:var(--sp-md);font-size:14px;font-weight:600;color:var(--gold-deep);}
+
+/* ===== 코스 내비 ===== */
+.menu-nav{
+  position:sticky;top:0;z-index:30;margin:0 calc(-1*clamp(26px,5vw,56px));
+  padding:12px clamp(26px,5vw,56px);
+  background:rgba(255,253,248,.86);backdrop-filter:blur(8px);
+  border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line);
+  display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;
+}
+.menu-nav::-webkit-scrollbar{display:none;}
+.menu-nav a{
+  flex:0 0 auto;font-size:13px;font-weight:600;color:var(--ink-soft);text-decoration:none;
+  padding:6px 12px;border-radius:999px;white-space:nowrap;transition:all .18s;
+}
+.menu-nav a:hover{color:var(--gold-deep);background:#F3ECDD;}
+
+/* ===== 코스(카테고리) ===== */
+.course{padding-top:var(--sp-xl);scroll-margin-top:64px;}
+.course:first-of-type{padding-top:var(--sp-lg);}
+.course-head{display:flex;align-items:center;gap:14px;margin-bottom:var(--sp-md);}
+.course-mark{
+  width:40px;height:40px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;
+  border:1px solid var(--gold-soft);color:var(--gold-deep);background:#FBF5E9;
+}
+.course-mark .material-icons-outlined{font-size:21px;}
+.course-head h2{font-size:24px;font-weight:600;letter-spacing:-.01em;white-space:nowrap;}
+.course-head .hr{flex:1;height:1px;background:var(--line);}
+.course-head .no{font-size:12px;letter-spacing:.18em;color:var(--ink-faint);font-weight:700;}
+
+/* ===== 메뉴 아이템 ===== */
+.dish{padding:var(--sp-lg) 0;border-bottom:1px solid var(--line-soft);}
+.course .dish:last-child{border-bottom:none;}
+.dish-top{display:flex;align-items:baseline;gap:8px;}
+.dish-name{font-size:20px;font-weight:600;color:var(--ink);white-space:nowrap;letter-spacing:-.01em;}
+.dish-leader{flex:1;border-bottom:1px dotted var(--gold-soft);transform:translateY(-5px);min-width:18px;}
+.dish-eng{font-size:13px;color:var(--ink-faint);font-weight:600;white-space:nowrap;font-style:italic;}
+.dish-desc{font-size:15px;line-height:1.7;color:var(--ink-soft);margin-top:10px;max-width:660px;}
+.dish-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;flex-wrap:wrap;}
+.tags{display:flex;flex-wrap:wrap;gap:6px;}
+.tag{font-size:12px;color:var(--ink-faint);font-weight:600;}
+.tag::before{content:"#";color:var(--gold-soft);}
+.dish-actions{display:flex;gap:8px;align-items:center;flex:0 0 auto;}
+
+/* ===== 버튼 ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:none;cursor:pointer;
+  font-family:inherit;font-weight:600;transition:all .18s;text-decoration:none;white-space:nowrap;}
+.btn .material-icons-outlined{font-size:18px;}
+.lnk{background:none;color:var(--ink-soft);font-size:13.5px;padding:7px 10px;border-radius:var(--radius-sm);}
+.lnk:hover{color:var(--ink);background:#F4EEE1;}
+.lnk-gold{background:none;color:var(--gold-deep);font-size:13.5px;padding:7px 12px;border-radius:var(--radius-sm);font-weight:700;}
+.lnk-gold:hover{background:#F6EEDC;}
+.btn-fill{background:var(--ink);color:#fff;font-size:14px;padding:11px 20px;border-radius:999px;}
+.btn-fill:hover{background:#3d362c;}
+.btn-gold{background:var(--gold);color:#fff;font-size:14px;padding:11px 20px;border-radius:999px;}
+.btn-gold:hover{background:var(--gold-deep);}
+.btn-line{background:#fff;color:var(--ink);border:1px solid var(--line);font-size:14px;padding:10px 16px;border-radius:999px;}
+.btn-line:hover{border-color:var(--gold-soft);background:#FCF8EF;}
+.btn-block{width:100%;}
+.btn-sm{font-size:13px;padding:8px 13px;}
+.btn-danger{background:#F6E7E7;color:var(--color-error);border:1px solid #ECCFCF;}
+.btn-danger:hover{background:#F0D9D9;}
+
+/* ===== 숨김 관리자 버튼 ===== */
+.admin-dot{position:fixed;right:14px;bottom:14px;width:30px;height:30px;border-radius:50%;
+  background:rgba(120,90,40,.05);border:none;cursor:pointer;z-index:40;opacity:.25;
+  transition:opacity .2s,transform .2s;display:grid;place-items:center;}
+.admin-dot:hover{opacity:.95;transform:scale(1.08);background:rgba(120,90,40,.12);}
+.admin-dot .material-icons-outlined{font-size:16px;color:var(--gold-deep);}
+
+/* ===== 오버레이 / 모달 ===== */
+.overlay{position:fixed;inset:0;background:rgba(30,24,14,.55);backdrop-filter:blur(4px);
+  z-index:60;display:none;align-items:center;justify-content:center;padding:var(--sp-md);}
+.overlay.show{display:flex;}
+.modal{background:var(--card);border-radius:var(--radius-xl);width:100%;max-width:560px;
+  max-height:90vh;overflow:auto;box-shadow:var(--shadow-lg);}
+.modal.wide{max-width:920px;}
+.modal-head{position:sticky;top:0;background:var(--card);z-index:2;display:flex;align-items:center;
+  justify-content:space-between;gap:10px;padding:var(--sp-lg);border-bottom:1px solid var(--line);}
+.modal-head h3{font-size:19px;font-weight:600;display:flex;align-items:center;gap:8px;}
+.modal-head h3 .material-icons-outlined{color:var(--gold);}
+.icon-btn{background:none;border:none;cursor:pointer;width:36px;height:36px;border-radius:50%;
+  display:grid;place-items:center;color:var(--ink-soft);}
+.icon-btn:hover{background:#F4EEE1;}
+.modal-body{padding:var(--sp-lg);}
+
+/* ===== 상세 모달 ===== */
+.shot-frame{border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm);background:#fff;margin-bottom:var(--sp-lg);}
+.shot-bar{display:flex;align-items:center;gap:6px;padding:9px 14px;background:#F4EEE2;border-bottom:1px solid var(--line);}
+.shot-bar i{width:9px;height:9px;border-radius:50%;background:var(--gold-soft);display:inline-block;}
+.shot-bar i:nth-child(2){background:#E2D2AE;}
+.shot-bar i:nth-child(3){background:#D8C49A;}
+.shot-bar span{margin-left:8px;font-size:12px;color:var(--ink-faint);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.shot-img-wrap{background:#FBF8F1;display:grid;place-items:center;min-height:160px;}
+.shot-img-wrap img{display:block;width:100%;max-height:440px;object-fit:contain;}
+.shot-empty{padding:48px 20px;color:var(--ink-faint);font-size:14px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:8px;}
+.detail-eng{font-size:14px;color:var(--ink-faint);font-weight:600;font-style:italic;margin-top:2px;}
+.detail-desc{font-size:15.5px;line-height:1.75;color:var(--ink-soft);margin:var(--sp-md) 0 var(--sp-lg);}
+.detail-sub{display:flex;align-items:center;gap:8px;margin:var(--sp-md) 0 12px;}
+.detail-sub .ln{flex:1;height:1px;background:var(--line);}
+.detail-sub .smallcaps{letter-spacing:.22em;}
+.exp-grid{display:grid;grid-template-columns:1fr;gap:9px;}
+.exp-item{display:flex;align-items:flex-start;gap:9px;font-size:14.5px;color:var(--ink-soft);line-height:1.55;}
+.exp-item .material-icons-outlined{font-size:18px;color:var(--gold);flex:0 0 auto;margin-top:1px;}
+
+/* ===== 폼 / 관리자 ===== */
+label.fld{display:block;margin-bottom:var(--sp-md);}
+label.fld>span{display:block;font-size:13px;font-weight:700;color:var(--ink-soft);margin-bottom:6px;}
+.input,select.input,textarea.input{width:100%;padding:10px 14px;border:1px solid var(--line);border-radius:var(--radius-md);
+  font-family:inherit;font-size:15px;color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s;background:#fff;}
+textarea.input{resize:vertical;min-height:70px;line-height:1.55;}
+.input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(168,136,78,.16);}
+.hint{font-size:12px;color:var(--ink-faint);margin-top:5px;line-height:1.5;}
+.pin-row .input{text-align:center;letter-spacing:.3em;font-size:18px;}
+.notice{font-size:13px;color:var(--ink);background:#F6EEDC;border:1px solid var(--gold-soft);border-radius:var(--radius-md);padding:11px 14px;margin-bottom:var(--sp-md);line-height:1.55;}
+.cat-block{border:1px solid var(--line);border-radius:var(--radius-lg);margin-bottom:var(--sp-md);overflow:hidden;}
+.cat-block-head{display:flex;align-items:center;gap:8px;padding:12px var(--sp-md);background:#F7F1E5;flex-wrap:wrap;}
+.cat-block-head .material-icons-outlined{color:var(--ink-soft);}
+.cat-block-body{padding:var(--sp-md);display:flex;flex-direction:column;gap:10px;}
+.app-edit{border:1px dashed var(--line);border-radius:var(--radius-md);padding:var(--sp-md);background:#FBF8F1;}
+.app-edit .row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px;}
+.app-edit .row strong{font-size:14px;}
+.grid2{display:grid;grid-template-columns:1fr;gap:10px;}
+
+/* ===== 토스트 ===== */
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%) translateY(20px);
+  background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-size:14px;font-weight:600;
+  box-shadow:var(--shadow-md);z-index:80;opacity:0;transition:opacity .25s,transform .25s;
+  pointer-events:none;display:flex;align-items:center;gap:8px;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.toast .material-icons-outlined{font-size:18px;}
+.sync-note{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:600;
+  color:var(--ink-faint);margin-top:var(--sp-lg);}
+.sync-note .material-icons-outlined{font-size:15px;color:var(--color-success);}
+
+/* ===== 푸터 ===== */
+.chichiboo-footer{width:100%;padding:var(--sp-md) var(--sp-lg);background:#EFE7D7;
+  border-top:1px solid var(--line);text-align:center;margin-top:auto;}
+.chichiboo-footer a{display:inline-flex;align-items:center;gap:var(--sp-xs);font-size:13px;color:var(--ink-soft);text-decoration:none;transition:color .2s;}
+.chichiboo-footer a:hover{color:var(--gold-deep);}
+.chichiboo-footer .material-icons-outlined{font-size:16px;}
+
+.center-load{text-align:center;padding:90px 20px;color:var(--ink-faint);font-weight:600;}
+.spin{display:inline-block;animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+@media (min-width:680px){
+  .grid2{grid-template-columns:1fr 1fr;}
+  .exp-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width:560px){
+  .menu-paper{padding:24px 18px;}
+  .menu-paper::before{inset:9px;}
+  .menu-nav{margin:0 -18px;padding:10px 18px;}
+  .dish-eng{display:none;}
+  .dish-leader{display:none;}
+}
+</style>
+</head>
+<body>
+
+<main id="app">
+  <div class="center-load"><span class="material-icons-outlined spin">progress_activity</span><br/>메뉴를 준비하는 중…</div>
+</main>
+
+<button class="admin-dot" id="adminDot" title="관리자" aria-label="관리자 모드">
+  <span class="material-icons-outlined">tune</span>
+</button>
+
+<!-- PIN -->
+<div class="overlay" id="pinOverlay">
+  <div class="modal" style="max-width:380px;">
+    <div class="modal-head">
+      <h3><span class="material-icons-outlined">lock</span>관리자 입장</h3>
+      <button class="icon-btn" data-close="pinOverlay"><span class="material-icons-outlined">close</span></button>
+    </div>
+    <div class="modal-body">
+      <label class="fld">
+        <span>PIN 번호</span>
+        <div class="pin-row"><input class="input" id="pinInput" type="password" inputmode="text" maxlength="20" placeholder="••••" autocomplete="off"/></div>
+        <p class="hint">초기 PIN은 <strong>chichiboo</strong> 입니다. 코드 상단 <code>ADMIN_PIN</code> 값에서 변경할 수 있어요.</p>
+      </label>
+      <button class="btn btn-gold btn-block" id="pinSubmit"><span class="material-icons-outlined">login</span>입장하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 상세 -->
+<div class="overlay" id="detailOverlay">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="detailTitle"><span class="material-icons-outlined">restaurant_menu</span><span class="serif"></span></h3>
+      <button class="icon-btn" data-close="detailOverlay"><span class="material-icons-outlined">close</span></button>
+    </div>
+    <div class="modal-body" id="detailBody"></div>
+  </div>
+</div>
+
+<!-- 관리자 편집 -->
+<div class="overlay" id="adminOverlay">
+  <div class="modal wide">
+    <div class="modal-head">
+      <h3><span class="material-icons-outlined">edit_note</span>메뉴 편집</h3>
+      <button class="icon-btn" data-close="adminOverlay"><span class="material-icons-outlined">close</span></button>
+    </div>
+    <div class="modal-body" id="adminBody"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span class="material-icons-outlined">check_circle</span><span id="toastMsg"></span></div>
+
+<footer class="chichiboo-footer">
+  <a href="https://litt.ly/chichiboo" target="_blank" rel="noopener noreferrer">
+    <span class="material-icons-outlined">auto_stories</span>
+    Created by. 교육뮤지컬 꿈꾸는 치수쌤
+  </a>
+</footer>
+
+<script>
+/* =========================================================
+   바이브코딩 오마카세 · 설정
+   ========================================================= */
+const ADMIN_PIN = "chichiboo";              // 관리자 PIN
+const STORAGE_KEY = "vibe-omakase-v2";      // 공유 저장소 키
+const SHARED = true;                         // 모든 기기/사용자 동기화
+
+const ICON_PRESETS = ["auto_stories","groups","work","palette","public","theater_comedy",
+  "menu_book","forum","build","brush","language","music_note","science","favorite","extension","lightbulb"];
+
+/* =========================================================
+   초기 데이터 (문구 정돈 + 스크린샷)
+   ========================================================= */
+const DEFAULT_DATA = {
+  updatedAt: null,
+  categories: [
+    { id:"humanities", name:"인문·창작", icon:"auto_stories", apps:[
+      { id:"wim", name:"왓츠 인 마이", eng:"What's In My",
+        desc:"여덟 개의 질문 모듈을 따라가며 나를 들여다보고 기록하는 자기표현 웹앱",
+        exp:["여덟 개의 자기탐색 모듈","작성한 내용 자동 저장","기록 백업과 복원","JPG·PDF·클립보드·JSON 내보내기","한국어·영어·일본어와 테마 전환"],
+        field:"진로교육", keywords:["자아탐색","인문","진로교육"],
+        link:"https://wim.chichiboo.link",
+        shot:"https://drive.google.com/thumbnail?id=1eFvrZziFOd5p_D7xRrQ4mhE9-5MKdk_s&sz=w2000" },
+    ]},
+    { id:"class", name:"수업·학급운영", icon:"groups", apps:[
+      { id:"classmeeting", name:"우리반 학급회의", eng:"Class Meeting Guide",
+        desc:"단계별 진행 대본과 기록 기능으로 학생이 스스로 이끄는 학급회의를 돕는 웹앱",
+        exp:["단계별 진행자 대본 안내","회의 목표 설정","안건 등록과 투표","회의 내용·결과 기록","회의 결과 저장과 불러오기","TXT·JSON 내보내기"],
+        field:"학급회의", keywords:["학급회의","학급자치","학급운영"],
+        link:"https://chichiboo.link/classmeeting",
+        shot:"https://drive.google.com/thumbnail?id=1HYoMFgxezOX7gbunbTgIP5vx12yYlWGS&sz=w2000" },
+    ]},
+    { id:"work", name:"업무", icon:"work", apps:[
+      { id:"symbolbox", name:"여기 있어 특수문자", eng:"Symbol Box",
+        desc:"필요한 특수문자를 빠르게 찾아 클릭 한 번으로 복사하는 작업 도구",
+        exp:["카테고리별 특수문자 탐색","문자 이름으로 검색","클릭 한 번에 클립보드 복사","최근 복사한 문자 다시 사용"],
+        field:"특수문자", keywords:["특수문자","시각디자인","업무"],
+        link:"https://chichiboo.link/symbolbox",
+        shot:"https://drive.google.com/thumbnail?id=1gEoWdG6OVmrFZpDSRbaZntFL1LnSfASw&sz=w2000" },
+    ]},
+    { id:"visual", name:"인터랙티브 시각디자인", icon:"palette", apps:[
+      { id:"dotmusic", name:"닷 뮤직", eng:"Dot Music",
+        desc:"이미지와 영상, 웹캠 화면을 점과 격자로 바꾸고 그 모습을 실시간 소리로 연주하는 시청각 창작 웹앱",
+        exp:["이미지·영상·웹캠 불러오기","점과 격자로 시각화","시각 정보를 실시간 소리로 변환","신디사이저·음계·속도 조절","화면 캡처와 녹화","작곡 노트 저장"],
+        field:"인터랙티브아트", keywords:["인터랙티브아트","음악창작","융합예술"],
+        link:"https://dotmusic.chichiboo.link",
+        shot:"https://drive.google.com/thumbnail?id=1q7GF74ZgDSu1G_fcBogkgh4pyveZVdoE&sz=w2000" },
+      { id:"pixelworld", name:"픽셀월드", eng:"Pixel World",
+        desc:"픽셀로 그림을 그리고 번호 색칠 도안으로 바꿔 저장하고 공유하는 드로잉 웹앱",
+        exp:["캔버스 모양과 크기 선택","픽셀 드로잉과 색상 변경","실행 취소와 다시 실행","번호 색칠 도안 만들기","JPG·클립보드·링크·JSON 저장","갤러리 공유"],
+        field:"픽셀아트", keywords:["픽셀아트","디지털아트","시각디자인"],
+        link:"https://pxworld.chichiboo.link/",
+        shot:"https://drive.google.com/thumbnail?id=1Xw9yyF2AcHCIFZTSh_IPPJyXLwwsXAPQ&sz=w2000" },
+    ]},
+    { id:"global", name:"디지털·세계시민교육", icon:"public", apps:[
+      { id:"flag", name:"국기 팔레트", eng:"Flag Palette",
+        desc:"세계 여러 나라의 국기를 색으로 살펴보고, 마음에 드는 국기를 나만의 팔레트로 모으는 웹앱",
+        exp:["색상 비율로 국기 탐색","국가 검색과 정렬","수도·대륙 정보 확인","관심 국기 팔레트에 담기","메모 작성과 자료 저장","한국어·영어·일본어·중국어 지원"],
+        field:"세계시민교육", keywords:["세계시민교육","국기","상징물"],
+        link:"https://flag.chichiboo.link/",
+        shot:"https://drive.google.com/thumbnail?id=1bJdi3l6At82nNhEy7gZh03QJATSU046F&sz=w2000" },
+      { id:"sdgslens", name:"SDGs 렌즈", eng:"SDGs Lens",
+        desc:"세계 뉴스를 지속가능발전목표 17개의 시선으로 읽고 해석해 보는 세계시민교육 웹앱",
+        exp:["세계 뉴스 무작위 탐색","뉴스와 관련된 SDGs 목표 선택","힌트 확인과 재도전","자동 채점과 설명 피드백","뉴스를 내 생활과 연결","SDGs 목표별 정보 확인"],
+        field:"SDGs", keywords:["SDGs","세계시민교육","미디어리터러시"],
+        link:"https://sdgslens.chichiboo.link/",
+        shot:"https://drive.google.com/thumbnail?id=16CCBsri0uCg1Lx8XrXASft5yzxmHtC0u&sz=w2000" },
+    ]},
+    { id:"musical", name:"뮤지컬", icon:"theater_comedy", apps:[
+      { id:"soundbox", name:"여기 있어 효과음", eng:"Sound Box",
+        desc:"공연과 수업에 필요한 효과음을 빠르게 찾아 바로 재생하는 웹앱",
+        exp:["카테고리별 효과음 탐색","효과음 즉시 재생","자주 쓰는 효과음 즐겨찾기","공연용 무대 모드"],
+        field:"음향", keywords:["효과음","사운드","무대"],
+        link:"https://soundbox.chichiboo.link/",
+        shot:"https://i.ibb.co/S71DLpc1/2025-10-30-10-05-24.webp" },
+    ]},
+  ],
+};
+
+/* =========================================================
+   저장소 어댑터 (window.storage 공유모드)
+   ========================================================= */
+let memoryFallback = null;
+function hasStorage(){ return typeof window!=="undefined" && window.storage && typeof window.storage.get==="function"; }
+async function loadData(){
+  if(hasStorage()){
+    try{ const res=await window.storage.get(STORAGE_KEY,SHARED); if(res&&res.value) return JSON.parse(res.value); }catch(e){}
+    return clone(DEFAULT_DATA);
+  }
+  return memoryFallback ? clone(memoryFallback) : clone(DEFAULT_DATA);
+}
+async function saveData(data){
+  data.updatedAt=new Date().toISOString();
+  if(hasStorage()){
+    try{ const res=await window.storage.set(STORAGE_KEY,JSON.stringify(data),SHARED); if(!res) throw new Error("fail"); return true; }
+    catch(e){ console.error(e); return false; }
+  }
+  memoryFallback=clone(data); return true;
+}
+async function resetData(){ if(hasStorage()){ try{ await window.storage.delete(STORAGE_KEY,SHARED); }catch(e){} } memoryFallback=null; }
+
+/* =========================================================
+   유틸
+   ========================================================= */
+const $=(s,el=document)=>el.querySelector(s);
+const $$=(s,el=document)=>Array.from(el.querySelectorAll(s));
+const clone=o=>JSON.parse(JSON.stringify(o));
+const esc=s=>String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const uid=()=>"x"+Math.random().toString(36).slice(2,8);
+const PAD=n=>String(n).padStart(2,"0");
+function findApp(data,id){ for(const c of data.categories){ const a=c.apps.find(x=>x.id===id); if(a) return {app:a,cat:c}; } return null; }
+function domain(url){ try{ return new URL(url).hostname.replace(/^www\./,""); }catch(e){ return url||""; } }
+function fmtDate(iso){ if(!iso) return "—"; const d=new Date(iso); return d.toLocaleString("ko-KR",{month:"long",day:"numeric",hour:"2-digit",minute:"2-digit"}); }
+
+let STATE={data:null};
+let DRAFT=null;
+
+/* =========================================================
+   공개 뷰
+   ========================================================= */
+function render(){
+  const data=STATE.data;
+  const navLinks=data.categories.filter(c=>c.apps.length)
+    .map(c=>`<a href="#sec-${esc(c.id)}">${esc(c.name)}</a>`).join("");
+
+  let courses="";
+  let n=0;
+  data.categories.forEach(c=>{
+    if(!c.apps.length) return;
+    n++;
+    courses+=`<section class="course" id="sec-${esc(c.id)}">
+      <div class="course-head">
+        <div class="course-mark"><span class="material-icons-outlined">${esc(c.icon)}</span></div>
+        <h2 class="serif">${esc(c.name)}</h2>
+        <div class="hr"></div>
+        <div class="no">Nº ${PAD(n)}</div>
+      </div>
+      ${c.apps.map(a=>dishHtml(a)).join("")}
+    </section>`;
+  });
+
+  $("#app").innerHTML=`
+    <div class="menu-paper">
+      <div class="cover">
+        <div class="ornament">❧</div>
+        <span class="smallcaps">Omakase&nbsp;Course</span>
+        <h1 class="serif">바이브코딩 오마카세</h1>
+        <div class="rule"><span class="ln"></span><span class="dia"></span><span class="ln"></span></div>
+        <p class="lead">셰프가 코스를 엄선하듯, 직접 체험해 보는 바이브코딩 웹앱을 여섯 가지 코스로 차렸습니다. 천천히 음미해 보세요.</p>
+        <p class="byline">by. 교육뮤지컬 꿈꾸는 치수쌤</p>
+      </div>
+      <nav class="menu-nav">${navLinks}</nav>
+      ${courses}
+      <div class="sync-note"><span class="material-icons-outlined">cloud_done</span>최근 업데이트 ${esc(fmtDate(data.updatedAt))} · 모든 기기 동기화</div>
+    </div>`;
+
+  $$(".js-detail").forEach(b=>b.addEventListener("click",()=>openDetail(b.dataset.id)));
+}
+
+function dishHtml(a){
+  return `<article class="dish">
+    <div class="dish-top">
+      <span class="dish-name serif">${esc(a.name)}</span>
+      <span class="dish-leader"></span>
+      <span class="dish-eng">${esc(a.eng)}</span>
+    </div>
+    <p class="dish-desc">${esc(a.desc)}</p>
+    <div class="dish-foot">
+      <div class="tags">${a.keywords.map(k=>`<span class="tag">${esc(k)}</span>`).join("")}</div>
+      <div class="dish-actions">
+        <button class="btn lnk js-detail" data-id="${esc(a.id)}"><span class="material-icons-outlined">photo_camera</span>자세히</button>
+        <a class="btn lnk-gold" href="${esc(a.link)}" target="_blank" rel="noopener noreferrer">체험하기<span class="material-icons-outlined">arrow_forward</span></a>
+      </div>
+    </div>
+  </article>`;
+}
+
+/* ===== 상세(스크린샷 포함) ===== */
+function shotHtml(a){
+  if(a.shot && a.shot.trim()){
+    return `<div class="shot-frame">
+      <div class="shot-bar"><i></i><i></i><i></i><span>${esc(domain(a.link))}</span></div>
+      <div class="shot-img-wrap">
+        <img src="${esc(a.shot)}" alt="${esc(a.name)} 스크린샷" loading="lazy"
+          onerror="this.closest('.shot-img-wrap').innerHTML='&lt;div class=\\'shot-empty\\'&gt;&lt;span class=\\'material-icons-outlined\\'&gt;image_not_supported&lt;/span&gt;스크린샷을 불러오지 못했어요&lt;/div&gt;'"/>
+      </div>
+    </div>`;
+  }
+  return `<div class="shot-frame"><div class="shot-img-wrap"><div class="shot-empty"><span class="material-icons-outlined">image</span>스크린샷 준비 중</div></div></div>`;
+}
+function openDetail(id){
+  const f=findApp(STATE.data,id); if(!f) return;
+  const {app:a,cat:c}=f;
+  $("#detailTitle span:last-child").textContent=a.name;
+  $("#detailBody").innerHTML=`
+    ${shotHtml(a)}
+    <span class="smallcaps">${esc(c.name)}</span>
+    <div class="detail-eng">${esc(a.eng)}</div>
+    <p class="detail-desc">${esc(a.desc)}</p>
+    <div class="detail-sub"><span class="smallcaps">주요 체험</span><span class="ln"></span></div>
+    <div class="exp-grid">
+      ${a.exp.map(e=>`<div class="exp-item"><span class="material-icons-outlined">check</span><span>${esc(e)}</span></div>`).join("")}
+    </div>
+    <div class="tags" style="margin-top:18px;">${a.keywords.map(k=>`<span class="tag">${esc(k)}</span>`).join("")}</div>
+    <a class="btn btn-gold btn-block" style="margin-top:22px;" href="${esc(a.link)}" target="_blank" rel="noopener noreferrer">체험하러 가기<span class="material-icons-outlined">arrow_forward</span></a>`;
+  showOverlay("detailOverlay");
+}
+
+/* =========================================================
+   관리자
+   ========================================================= */
+$("#adminDot").addEventListener("click",()=>{ $("#pinInput").value=""; showOverlay("pinOverlay"); setTimeout(()=>$("#pinInput").focus(),50); });
+$("#pinSubmit").addEventListener("click",tryPin);
+$("#pinInput").addEventListener("keydown",e=>{ if(e.key==="Enter") tryPin(); });
+function tryPin(){ if($("#pinInput").value===ADMIN_PIN){ hideOverlay("pinOverlay"); openAdmin(); } else { toast("PIN이 올바르지 않습니다","error"); $("#pinInput").value=""; $("#pinInput").focus(); } }
+
+function openAdmin(){ DRAFT=clone(STATE.data); renderAdmin(); showOverlay("adminOverlay"); }
+
+function renderAdmin(){
+  const d=DRAFT;
+  let html=`<div class="notice"><strong>안내</strong> · 여기서 저장한 내용은 <b>공유 저장소</b>에 기록되어 이 메뉴를 여는 <b>모든 기기·사용자</b>에게 동일하게 반영됩니다.</div>`;
+
+  d.categories.forEach((c,ci)=>{
+    html+=`<div class="cat-block" data-ci="${ci}">
+      <div class="cat-block-head">
+        <span class="material-icons-outlined">${esc(c.icon)}</span>
+        <input class="input" style="flex:1;min-width:120px;" data-f="cat-name" value="${esc(c.name)}" placeholder="카테고리명"/>
+        <select class="input" style="width:auto;" data-f="cat-icon">
+          ${ICON_PRESETS.map(ic=>`<option value="${ic}" ${ic===c.icon?"selected":""}>${ic}</option>`).join("")}
+        </select>
+        <button class="btn btn-danger btn-sm" data-act="del-cat" data-ci="${ci}"><span class="material-icons-outlined">delete</span></button>
+      </div>
+      <div class="cat-block-body">
+        ${c.apps.map((a,ai)=>appEditHtml(a,ci,ai)).join("")}
+        <button class="btn btn-line btn-sm" data-act="add-app" data-ci="${ci}"><span class="material-icons-outlined">add</span>앱 추가</button>
+      </div>
+    </div>`;
+  });
+
+  html+=`<button class="btn btn-line btn-block" data-act="add-cat" style="margin-bottom:24px;"><span class="material-icons-outlined">create_new_folder</span>카테고리 추가</button>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;border-top:1px solid var(--line);padding-top:20px;">
+      <button class="btn btn-gold" data-act="save"><span class="material-icons-outlined">save</span>저장 (모든 기기 적용)</button>
+      <button class="btn btn-line" data-act="export"><span class="material-icons-outlined">download</span>JSON 백업</button>
+      <button class="btn btn-line" data-act="import"><span class="material-icons-outlined">upload</span>JSON 불러오기</button>
+      <button class="btn btn-danger" data-act="reset" style="margin-left:auto;"><span class="material-icons-outlined">restart_alt</span>초기화</button>
+    </div>
+    <input type="file" id="importFile" accept="application/json" style="display:none"/>`;
+
+  const body=$("#adminBody");
+  body.innerHTML=html;
+  if(!body.dataset.bound){ body.addEventListener("input",onAdminInput); body.dataset.bound="1"; }
+  $$("[data-act]",body).forEach(btn=>btn.addEventListener("click",onAdminAction));
+  $("#importFile").addEventListener("change",onImportFile);
+}
+
+function appEditHtml(a,ci,ai){
+  return `<div class="app-edit" data-ci="${ci}" data-ai="${ai}">
+    <div class="row">
+      <strong><span class="material-icons-outlined" style="font-size:16px;vertical-align:-3px;color:var(--ink-faint)">apps</span> ${esc(a.name)||"(이름 없음)"}</strong>
+      <button class="btn btn-danger btn-sm" data-act="del-app" data-ci="${ci}" data-ai="${ai}"><span class="material-icons-outlined">close</span></button>
+    </div>
+    <div class="grid2">
+      <label class="fld"><span>앱 이름</span><input class="input" data-f="name" value="${esc(a.name)}"/></label>
+      <label class="fld"><span>영문명</span><input class="input" data-f="eng" value="${esc(a.eng)}"/></label>
+    </div>
+    <label class="fld"><span>설명</span><textarea class="input" data-f="desc">${esc(a.desc)}</textarea></label>
+    <label class="fld"><span>주요 체험 (한 줄에 하나씩)</span><textarea class="input" data-f="exp" style="min-height:110px;">${esc(a.exp.join("\n"))}</textarea></label>
+    <div class="grid2">
+      <label class="fld"><span>활용 분야</span><input class="input" data-f="field" value="${esc(a.field)}"/></label>
+      <label class="fld"><span>키워드 (쉼표로 구분)</span><input class="input" data-f="keywords" value="${esc(a.keywords.join(", "))}"/></label>
+    </div>
+    <label class="fld"><span>링크 URL</span><input class="input" data-f="link" value="${esc(a.link)}"/></label>
+    <label class="fld" style="margin-bottom:0;"><span>스크린샷 이미지 URL</span><input class="input" data-f="shot" value="${esc(a.shot||"")}" placeholder="https://..."/></label>
+  </div>`;
+}
+
+function onAdminInput(e){
+  const f=e.target.dataset.f; if(!f) return;
+  const catBlock=e.target.closest(".cat-block");
+  if(catBlock && (f==="cat-name"||f==="cat-icon")){
+    const ci=+catBlock.dataset.ci;
+    if(f==="cat-name") DRAFT.categories[ci].name=e.target.value;
+    if(f==="cat-icon"){ DRAFT.categories[ci].icon=e.target.value; const ic=catBlock.querySelector(".cat-block-head .material-icons-outlined"); if(ic) ic.textContent=e.target.value; }
+    return;
+  }
+  const appBlock=e.target.closest(".app-edit");
+  if(appBlock){
+    const ci=+appBlock.dataset.ci, ai=+appBlock.dataset.ai;
+    const a=DRAFT.categories[ci].apps[ai];
+    if(f==="exp") a.exp=e.target.value.split("\n").map(s=>s.trim()).filter(Boolean);
+    else if(f==="keywords") a.keywords=e.target.value.split(",").map(s=>s.trim()).filter(Boolean);
+    else a[f]=e.target.value;
+    if(f==="name"){ const t=appBlock.querySelector(".row strong"); if(t) t.innerHTML=`<span class="material-icons-outlined" style="font-size:16px;vertical-align:-3px;color:var(--ink-faint)">apps</span> ${esc(e.target.value)||"(이름 없음)"}`; }
+  }
+}
+
+async function onAdminAction(e){
+  const btn=e.currentTarget, act=btn.dataset.act;
+  const ci=btn.dataset.ci!==undefined?+btn.dataset.ci:null;
+  const ai=btn.dataset.ai!==undefined?+btn.dataset.ai:null;
+
+  if(act==="add-cat"){ DRAFT.categories.push({id:uid(),name:"새 카테고리",icon:"extension",apps:[]}); renderAdmin(); return; }
+  if(act==="del-cat"){ if(!confirm("이 카테고리와 포함된 앱을 모두 삭제할까요?")) return; DRAFT.categories.splice(ci,1); renderAdmin(); return; }
+  if(act==="add-app"){ DRAFT.categories[ci].apps.push({id:uid(),name:"새 앱",eng:"New App",desc:"",exp:[],field:"",keywords:[],link:"https://",shot:""}); renderAdmin(); return; }
+  if(act==="del-app"){ if(!confirm("이 앱을 삭제할까요?")) return; DRAFT.categories[ci].apps.splice(ai,1); renderAdmin(); return; }
+  if(act==="save"){
+    btn.disabled=true;
+    const ok=await saveData(DRAFT);
+    btn.disabled=false;
+    if(ok){ STATE.data=clone(DRAFT); render(); toast("저장됐어요 · 모든 기기에 적용됩니다"); hideOverlay("adminOverlay"); }
+    else toast("저장에 실패했어요. 다시 시도해 주세요","error");
+    return;
+  }
+  if(act==="reset"){
+    if(!confirm("초기 메뉴로 되돌릴까요? (저장 후 모든 기기 적용)")) return;
+    await resetData(); STATE.data=clone(DEFAULT_DATA); await saveData(STATE.data);
+    render(); DRAFT=clone(STATE.data); renderAdmin(); toast("초기화했어요");
+    return;
+  }
+  if(act==="export"){
+    const blob=new Blob([JSON.stringify(DRAFT,null,2)],{type:"application/json"});
+    const url=URL.createObjectURL(blob); const a=document.createElement("a");
+    a.href=url; a.download=`vibe-omakase-${new Date().toISOString().slice(0,10)}.json`; a.click(); URL.revokeObjectURL(url);
+    return;
+  }
+  if(act==="import"){ $("#importFile").click(); return; }
+}
+
+function onImportFile(e){
+  const file=e.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=()=>{ try{ const p=JSON.parse(reader.result); if(!p.categories) throw 0; DRAFT=p; renderAdmin(); toast("불러왔어요 · '저장'을 눌러 적용하세요"); }catch(err){ toast("올바른 JSON 백업 파일이 아니에요","error"); } };
+  reader.readAsText(file); e.target.value="";
+}
+
+/* ===== 공통 ===== */
+function showOverlay(id){ $("#"+id).classList.add("show"); }
+function hideOverlay(id){ $("#"+id).classList.remove("show"); }
+$$("[data-close]").forEach(b=>b.addEventListener("click",()=>hideOverlay(b.dataset.close)));
+$$(".overlay").forEach(o=>o.addEventListener("click",e=>{ if(e.target===o) o.classList.remove("show"); }));
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") $$(".overlay.show").forEach(o=>o.classList.remove("show")); });
+
+let toastTimer=null;
+function toast(msg,type="ok"){
+  const t=$("#toast"); $("#toastMsg").textContent=msg;
+  t.querySelector(".material-icons-outlined").textContent=type==="error"?"error":"check_circle";
+  t.style.background=type==="error"?"var(--color-error)":"var(--ink)";
+  t.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"),2400);
+}
+
+(async function init(){
+  STATE.data=await loadData();
+  if(!STATE.data.categories) STATE.data=clone(DEFAULT_DATA);
+  render();
+})();
+</script>
+</body>
+</html>
