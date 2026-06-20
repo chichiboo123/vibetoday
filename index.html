@@ -3,6 +3,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>바이브코딩 오마카세 | 교육뮤지컬 꿈꾸는 치수쌤</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍽️</text></svg>">
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,7 +111,7 @@ main{flex:1;width:100%;max-width:900px;margin:0 auto;padding:0 var(--sp-md) 72px
 .dish-leader{flex:1;border-bottom:1px dotted var(--gold-soft);transform:translateY(-5px);min-width:18px;}
 .dish-eng{font-size:13px;color:var(--ink-faint);font-weight:600;white-space:nowrap;font-style:italic;}
 .dish-q{font-size:13px;line-height:1.65;color:var(--gold-deep);font-weight:600;margin-top:10px;max-width:660px;}
-.dish-q-label{color:var(--ink-faint);font-weight:700;}
+.dish-q-label{color:var(--ink-faint);font-weight:700;margin-right:5px;}
 .dish-desc{font-size:15px;line-height:1.7;color:var(--ink-soft);margin-top:6px;max-width:660px;}
 .dish-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;flex-wrap:wrap;}
 .tags{display:flex;flex-wrap:wrap;gap:6px;}
@@ -467,7 +468,7 @@ textarea.input{resize:vertical;min-height:70px;line-height:1.55;}
 /* =========================================================
    바이브코딩 오마카세 · 설정
    ========================================================= */
-const ADMIN_PIN = "chichiboo";              // 관리자 PIN
+const ADMIN_PIN = "%%ADMIN_PIN%%";           // 관리자 PIN (Netlify 빌드 시 환경변수로 주입)
 const STORAGE_KEY = "vibe-omakase-v2";      // 공유 저장소 키
 const SHARED = true;                         // 모든 기기/사용자 동기화
 
@@ -556,11 +557,13 @@ const DEFAULT_DATA = {
    ========================================================= */
 let memoryFallback = null;
 function hasStorage(){ return typeof window!=="undefined" && window.storage && typeof window.storage.get==="function"; }
+function hasLocal(){ try{ return typeof localStorage!=="undefined"; }catch(e){ return false; } }
 async function loadData(){
   if(hasStorage()){
     try{ const res=await window.storage.get(STORAGE_KEY,SHARED); if(res&&res.value) return JSON.parse(res.value); }catch(e){}
     return clone(DEFAULT_DATA);
   }
+  if(hasLocal()){ try{ const s=localStorage.getItem(STORAGE_KEY); if(s) return JSON.parse(s); }catch(e){} }
   return memoryFallback ? clone(memoryFallback) : clone(DEFAULT_DATA);
 }
 async function saveData(data){
@@ -569,9 +572,14 @@ async function saveData(data){
     try{ const res=await window.storage.set(STORAGE_KEY,JSON.stringify(data),SHARED); if(!res) throw new Error("fail"); return true; }
     catch(e){ console.error(e); return false; }
   }
+  if(hasLocal()){ try{ localStorage.setItem(STORAGE_KEY,JSON.stringify(data)); }catch(e){} }
   memoryFallback=clone(data); return true;
 }
-async function resetData(){ if(hasStorage()){ try{ await window.storage.delete(STORAGE_KEY,SHARED); }catch(e){} } memoryFallback=null; }
+async function resetData(){
+  if(hasStorage()){ try{ await window.storage.delete(STORAGE_KEY,SHARED); }catch(e){} }
+  if(hasLocal()){ try{ localStorage.removeItem(STORAGE_KEY); }catch(e){} }
+  memoryFallback=null;
+}
 
 /* =========================================================
    유틸

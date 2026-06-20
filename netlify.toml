@@ -1,0 +1,3 @@
+[build]
+  command = "mkdir -p dist && sed \"s/%%ADMIN_PIN%%/$ADMIN_PIN/g\" index.html > dist/index.html"
+  publish = "dist"
