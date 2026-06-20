@@ -426,7 +426,6 @@ textarea.input{resize:vertical;min-height:70px;line-height:1.55;}
       <label class="fld">
         <span>PIN 번호</span>
         <div class="pin-row"><input class="input" id="pinInput" type="password" inputmode="text" maxlength="20" placeholder="••••" autocomplete="off"></div>
-        <p class="hint">초기 PIN은 <strong>chichiboo</strong> 입니다. 코드 상단 <code>ADMIN_PIN</code> 값에서 변경할 수 있어요.</p>
       </label>
       <button class="btn btn-gold btn-block" id="pinSubmit"><span class="material-icons-outlined">login</span>입장하기</button>
     </div>
@@ -468,7 +467,7 @@ textarea.input{resize:vertical;min-height:70px;line-height:1.55;}
 /* =========================================================
    바이브코딩 오마카세 · 설정
    ========================================================= */
-const ADMIN_PIN = "%%ADMIN_PIN%%";           // 관리자 PIN (Netlify 빌드 시 환경변수로 주입)
+const ADMIN_PIN = "0000";                    // 관리자 PIN
 const STORAGE_KEY = "vibe-omakase-v2";      // 공유 저장소 키
 const SHARED = true;                         // 모든 기기/사용자 동기화
 
