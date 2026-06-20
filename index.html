@@ -635,7 +635,7 @@ function dishHtml(a){
       <span class="dish-leader"></span>
       <span class="dish-eng">${esc(a.eng)}</span>
     </div>
-    ${a.q?`<p class="dish-q"><span class="dish-q-label">시질문 : </span>${esc(a.q)}</p>`:""}
+    ${a.q?`<p class="dish-q"><span class="dish-q-label">시작질문 :</span>${esc(a.q)}</p>`:""}
     <p class="dish-desc">${esc(a.desc)}</p>
     <div class="dish-foot">
       <div class="tags">${a.keywords.map(k=>`<span class="tag">${esc(k)}</span>`).join("")}</div>
@@ -735,7 +735,7 @@ function appEditHtml(a,ci,ai){
       <label class="fld"><span>앱 이름</span><input class="input" data-f="name" value="${esc(a.name)}"/></label>
       <label class="fld"><span>영문명</span><input class="input" data-f="eng" value="${esc(a.eng)}"/></label>
     </div>
-    <label class="fld"><span>시질문</span><input class="input" data-f="q" value="${esc(a.q||"")}"/></label>
+    <label class="fld"><span>시작질문</span><input class="input" data-f="q" value="${esc(a.q||"")}"/></label>
     <label class="fld"><span>설명</span><textarea class="input" data-f="desc">${esc(a.desc)}</textarea></label>
     <label class="fld"><span>주요 체험 (한 줄에 하나씩)</span><textarea class="input" data-f="exp" style="min-height:110px;">${esc(a.exp.join("\n"))}</textarea></label>
     <div class="grid2">
