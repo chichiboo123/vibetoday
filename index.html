@@ -109,7 +109,9 @@ main{flex:1;width:100%;max-width:900px;margin:0 auto;padding:0 var(--sp-md) 72px
 .dish-name{font-size:20px;font-weight:600;color:var(--ink);white-space:nowrap;letter-spacing:-.01em;}
 .dish-leader{flex:1;border-bottom:1px dotted var(--gold-soft);transform:translateY(-5px);min-width:18px;}
 .dish-eng{font-size:13px;color:var(--ink-faint);font-weight:600;white-space:nowrap;font-style:italic;}
-.dish-desc{font-size:15px;line-height:1.7;color:var(--ink-soft);margin-top:10px;max-width:660px;}
+.dish-q{font-size:13px;line-height:1.65;color:var(--gold-deep);font-weight:600;margin-top:10px;max-width:660px;}
+.dish-q-label{color:var(--ink-faint);font-weight:700;}
+.dish-desc{font-size:15px;line-height:1.7;color:var(--ink-soft);margin-top:6px;max-width:660px;}
 .dish-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;flex-wrap:wrap;}
 .tags{display:flex;flex-wrap:wrap;gap:6px;}
 .tag{font-size:12px;color:var(--ink-faint);font-weight:600;}
@@ -480,6 +482,7 @@ const DEFAULT_DATA = {
   categories: [
     { id:"humanities", name:"인문·창작", icon:"auto_stories", apps:[
       { id:"wim", name:"왓츠 인 마이", eng:"What's In My",
+        q:"어떻게 하면 '왓츠 인 마이 백'처럼 자기탐색 활동을 흥미롭게 진행할 수 있을까?",
         desc:"10개의 질문 모듈을 따라가며 나를 들여다보고 기록하는 자기표현 웹앱",
         exp:["여덟 개의 자기탐색 모듈","작성한 내용 자동 저장","기록 백업과 복원","JPG·PDF·클립보드·JSON 내보내기","한국어·영어·일본어와 테마 전환"],
         field:"진로교육", keywords:["자아탐색","인문","진로교육"],
@@ -488,6 +491,7 @@ const DEFAULT_DATA = {
     ]},
     { id:"class", name:"수업·학급운영", icon:"groups", apps:[
       { id:"classmeeting", name:"우리반 학급회의", eng:"Class Meeting Guide",
+        q:"어떻게 하면 학급회의를 원활하게 진행하고 체계적으로 기록할 수 있을까?",
         desc:"단계별 진행 대본과 기록 기능으로 학생이 스스로 이끄는 학급회의를 돕는 웹앱",
         exp:["단계별 진행자 대본 안내","회의 목표 설정","안건 등록과 투표","회의 내용·결과 기록","회의 결과 저장과 불러오기","TXT·JSON 내보내기"],
         field:"학급회의", keywords:["학급회의","학급자치","학급운영"],
@@ -496,6 +500,7 @@ const DEFAULT_DATA = {
     ]},
     { id:"work", name:"업무", icon:"work", apps:[
       { id:"symbolbox", name:"여기 있어 특수문자", eng:"Symbol Box",
+        q:"어떻게 하면 필요한 특수문자를 바로 찾아 쓸 수 있을까?",
         desc:"큐레이션된 특수문자를 빠르게 찾아 복사하여 사용하는 작업 도구",
         exp:["카테고리별 특수문자 탐색","문자 이름으로 검색","클릭 한 번에 클립보드 복사","최근 복사한 문자 다시 사용"],
         field:"특수문자", keywords:["특수문자","시각디자인","업무"],
@@ -504,12 +509,14 @@ const DEFAULT_DATA = {
     ]},
     { id:"visual", name:"인터랙티브 시각디자인", icon:"palette", apps:[
       { id:"dotmusic", name:"닷 뮤직", eng:"Dot Music",
+        q:"어떻게 하면 이미지와 움직임을 소리로 표현하는 경험을 만들 수 있을까?",
         desc:"이미지와 영상, 웹캠 화면을 점과 격자로 바꾸고 그 모습을 실시간 소리로 연주하는 시청각 창작 웹앱",
         exp:["이미지·영상·웹캠 불러오기","점과 격자로 시각화","시각 정보를 실시간 소리로 변환","신디사이저·음계·속도 조절","화면 캡처와 녹화","작곡 노트 저장"],
         field:"인터랙티브아트", keywords:["인터랙티브아트","음악창작","융합예술"],
         link:"https://dotmusic.chichiboo.link",
         shot:"https://drive.google.com/thumbnail?id=1q7GF74ZgDSu1G_fcBogkgh4pyveZVdoE&sz=w2000" },
       { id:"pixelworld", name:"픽셀월드", eng:"Pixel World",
+        q:"어떻게 하면 학생들이 픽셀아트를 쉽게 만들고 공유할 수 있을까?",
         desc:"픽셀로 그림을 그리고 번호 색칠 도안으로 바꿔 저장하고 공유하는 드로잉 웹앱",
         exp:["캔버스 모양과 크기 선택","픽셀 드로잉과 색상 변경","실행 취소와 다시 실행","번호 색칠 도안 만들기","JPG·클립보드·링크·JSON 저장","갤러리 공유"],
         field:"픽셀아트", keywords:["픽셀아트","디지털아트","시각디자인"],
@@ -518,12 +525,14 @@ const DEFAULT_DATA = {
     ]},
     { id:"global", name:"디지털·세계시민교육", icon:"public", apps:[
       { id:"flag", name:"국기 팔레트", eng:"Flag Palette",
+        q:"어떻게 하면 세계 여러 나라의 국기를 디자인 수업과 효과적으로 연결할 수 있을까?",
         desc:"세계 여러 나라의 국기를 색으로 살펴보고, 마음에 드는 국기를 나만의 팔레트로 모으는 웹앱",
         exp:["색상 비율로 국기 탐색","국가 검색과 정렬","수도·대륙 정보 확인","관심 국기 팔레트에 담기","메모 작성과 자료 저장","한국어·영어·일본어·중국어 지원"],
         field:"세계시민교육", keywords:["세계시민교육","국기","상징물"],
         link:"https://flag.chichiboo.link/",
         shot:"https://drive.google.com/thumbnail?id=1bJdi3l6At82nNhEy7gZh03QJATSU046F&sz=w2000" },
       { id:"sdgslens", name:"SDGs 렌즈", eng:"SDGs Lens",
+        q:"어떻게 하면 실제 뉴스를 활용해 지속가능발전목표와 연결된 수업을 할 수 있을까?",
         desc:"세계 뉴스를 지속가능발전목표 17개의 시선으로 읽고 해석해 보는 세계시민교육 웹앱",
         exp:["세계 뉴스 무작위 탐색","뉴스와 관련된 SDGs 목표 선택","힌트 확인과 재도전","자동 채점과 설명 피드백","뉴스를 내 생활과 연결","SDGs 목표별 정보 확인"],
         field:"SDGs", keywords:["SDGs","세계시민교육","미디어리터러시"],
@@ -532,6 +541,7 @@ const DEFAULT_DATA = {
     ]},
     { id:"musical", name:"뮤지컬", icon:"theater_comedy", apps:[
       { id:"soundbox", name:"여기 있어 효과음", eng:"Sound Box",
+        q:"어떻게 하면 학생들이 자주 사용하는 효과음을 쉽고 빠르게 활용할 수 있을까?",
         desc:"자주 사용하는 효과음을 쉽게 사용할 수 있도록 모아둔 웹앱",
         exp:["카테고리별 효과음 탐색","효과음 즉시 재생","자주 쓰는 효과음 즐겨찾기","공연용 무대 모드"],
         field:"음향", keywords:["효과음","사운드","플레이리스트"],
@@ -625,6 +635,7 @@ function dishHtml(a){
       <span class="dish-leader"></span>
       <span class="dish-eng">${esc(a.eng)}</span>
     </div>
+    ${a.q?`<p class="dish-q"><span class="dish-q-label">시작질문 :</span>${esc(a.q)}</p>`:""}
     <p class="dish-desc">${esc(a.desc)}</p>
     <div class="dish-foot">
       <div class="tags">${a.keywords.map(k=>`<span class="tag">${esc(k)}</span>`).join("")}</div>
@@ -724,6 +735,7 @@ function appEditHtml(a,ci,ai){
       <label class="fld"><span>앱 이름</span><input class="input" data-f="name" value="${esc(a.name)}"/></label>
       <label class="fld"><span>영문명</span><input class="input" data-f="eng" value="${esc(a.eng)}"/></label>
     </div>
+    <label class="fld"><span>시작질문</span><input class="input" data-f="q" value="${esc(a.q||"")}"/></label>
     <label class="fld"><span>설명</span><textarea class="input" data-f="desc">${esc(a.desc)}</textarea></label>
     <label class="fld"><span>주요 체험 (한 줄에 하나씩)</span><textarea class="input" data-f="exp" style="min-height:110px;">${esc(a.exp.join("\n"))}</textarea></label>
     <div class="grid2">
